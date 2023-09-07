@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.EntidadesDeNegocio
 {
-    internal class Usuario
+    public class Usuario
     {
     }
 }

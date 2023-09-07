@@ -14,4 +14,9 @@
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectManager.AccesoADatos\ProjectManager.AccesoADatos.csproj" />
+    <ProjectReference Include="..\ProjectManager.EntidadesDeNegocio\ProjectManager.EntidadesDeNegocio.csproj" />
+  </ItemGroup>
+
 </Project>
