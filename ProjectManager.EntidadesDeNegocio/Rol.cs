@@ -11,7 +11,7 @@ namespace ProjectManager.EntidadesDeNegocio
     public  class Rol
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
 
         [Required(ErrorMessage = "Nombre es Obligatorio")]

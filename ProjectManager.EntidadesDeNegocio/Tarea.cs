@@ -32,7 +32,7 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [Display(Name = "Descriptión")]
         [Required(ErrorMessage = "La Descripción es Obligatorio")]
-        public string Descripción { get; set; }
+        public string Descripcion { get; set; }
 
         [Display(Name = "Priodidad")]
         [Required(ErrorMessage = "La Prioridad de la tarea es obligatoria")]
