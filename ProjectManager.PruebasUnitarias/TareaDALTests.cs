@@ -13,10 +13,7 @@ namespace ProjectManager.AccesoADatos.Tests
     [TestClass()]
     public class TareaDALTests
     {
-        private static Tarea tareaInicial = new Tarea { Id = 2, IdProyecto = 1, IdColaborador = 1,
-            Nombre = "Crear Pruevas Unitarias",
-            Descripcion = "Crear pruevas unitarias para cada uno de los metodos de la clase DAL Tarea",
-            Prioridad = 1, Esfuerzo = 1, Estado = 1 };
+        private static Tarea tareaInicial = new Tarea { Id = 2, IdProyecto = 1, IdColaborador = 1, Nombre = "Crear Pruevas Unitarias", Descripcion = "Crear pruevas unitarias para cada uno de los metodos de la clase DAL Tarea", Prioridad = 1, Esfuerzo = 1, Estado = 1 };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
@@ -31,6 +28,8 @@ namespace ProjectManager.AccesoADatos.Tests
             tarea.Estado = (byte)Estado_Tarea.ACTIVO;
             int result = await TareaDAL.CrearAsync(tarea);
             Assert.AreNotEqual(0, result);
+            tareaInicial.Id = tarea.Id;
+
         }
 
         [TestMethod()]
@@ -51,7 +50,10 @@ namespace ProjectManager.AccesoADatos.Tests
         [TestMethod()]
         public async Task T3EliminarAsyncTest()
         {
-            Assert.Fail();
+            var tarea = new Tarea();
+            tarea.Id = tareaInicial.Id;
+            int result = await TareaDAL.EliminarAsync(tarea);
+            Assert.AreNotEqual(0, result);
         }
 
         [TestMethod()]
@@ -60,7 +62,7 @@ namespace ProjectManager.AccesoADatos.Tests
             var tarea = new Tarea();
             tarea.Id = tareaInicial.Id;
             var resultTarea = await TareaDAL.ObtenerPorIdAsync(tarea);
-            Assert.AreEqual(0, resultTarea.Id);
+            Assert.AreEqual(tarea.Id, resultTarea.Id);
         }
 
         [TestMethod()]
@@ -74,7 +76,6 @@ namespace ProjectManager.AccesoADatos.Tests
         public async Task T6BuscarAsyncTest()
         {
             var tarea = new Tarea();
-            tarea.Id = tareaInicial.Id;
             tarea.IdProyecto = tareaInicial.IdProyecto;
             tarea.IdColaborador = tareaInicial.IdColaborador;
             tarea.Nombre = "Crear";
