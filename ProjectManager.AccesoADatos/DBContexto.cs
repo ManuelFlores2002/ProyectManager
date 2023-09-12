@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectManager.EntidadesDeNegocio;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,7 @@ namespace ProjectManager.AccesoADatos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-
-
-            optionBuilder.UseSqlServer(@"Data Source=DESKTOP-CC30LNJ;Initial Catalog=ProjectManager;Integrated Security=True; Trust Server Certificate=true");
-
+            optionBuilder.UseSqlServer(@"Data Source=PC-1;Initial Catalog=ProyectManager;Integrated Security=True; Trust Server Certificate=true");
         }
     }
 }
