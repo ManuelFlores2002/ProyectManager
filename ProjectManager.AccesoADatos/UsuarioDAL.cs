@@ -26,13 +26,12 @@ namespace ProjectManager.AccesoADatos
         private static async Task<bool> ExisteLogin(Usuario pUsuario, BDContexto pDbContext)
         {
             bool result = false;
-            var loginUsuarioExiste = await pDbContext.Usuario.FirstOrDefaultAsync(e => e.Login == pUsuario.Login && e.Id != pUsuario.Id);
+            var loginUsuarioExiste = await pDbContext.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login && s.Id != pUsuario.Id);
             if (loginUsuarioExiste != null && loginUsuarioExiste.Id > 0 && loginUsuarioExiste.Login == pUsuario.Login)
                 result = true;
             return result;
         }
 
-        #region CRUD
         public static async Task<int> CrearAsync(Usuario pUsuario)
         {
             int result = 0;
@@ -41,7 +40,7 @@ namespace ProjectManager.AccesoADatos
                 bool existeLogin = await ExisteLogin(pUsuario, bdContexto);
                 if (existeLogin == false)
                 {
-
+                    pUsuario.FechaRegistro = DateTime.Now;
                     EncriptarMD5(pUsuario);
                     bdContexto.Add(pUsuario);
                     result = await bdContexto.SaveChangesAsync();
@@ -60,15 +59,12 @@ namespace ProjectManager.AccesoADatos
                 bool existeLogin = await ExisteLogin(pUsuario, bdContexto);
                 if (existeLogin == false)
                 {
-                    var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(e => e.Id == pUsuario.Id);
+                    var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
                     usuario.IdRol = pUsuario.IdRol;
                     usuario.Nombre = pUsuario.Nombre;
                     usuario.Apellido = pUsuario.Apellido;
-                    usuario.FechaRegistro = pUsuario.FechaRegistro;
                     usuario.Login = pUsuario.Login;
-                    usuario.Password = pUsuario.Password;
-                    usuario.Estatus = pUsuario.Estatus;
-
+                    usuario.Estado = pUsuario.Estado;
                     bdContexto.Update(usuario);
                     result = await bdContexto.SaveChangesAsync();
                 }
@@ -83,7 +79,7 @@ namespace ProjectManager.AccesoADatos
             int result = 0;
             using (var bdContexto = new BDContexto())
             {
-                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(e => e.Id == pUsuario.Id);
+                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
                 bdContexto.Usuario.Remove(usuario);
                 result = await bdContexto.SaveChangesAsync();
             }
@@ -95,7 +91,7 @@ namespace ProjectManager.AccesoADatos
             var usuario = new Usuario();
             using (var bdContexto = new BDContexto())
             {
-                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(e => e.Id == pUsuario.Id);
+                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
             }
             return usuario;
         }
@@ -110,73 +106,71 @@ namespace ProjectManager.AccesoADatos
             return usuarios;
         }
 
-        internal static IQueryable<Usuario> QuerySelect(IQueryable<Usuario> pQuery,
-                            Usuario pUsuario)
+        internal static IQueryable<Usuario> QuerySelect(IQueryable<Usuario> pQuery, Usuario pUsuario)
         {
             if (pUsuario.Id > 0)
-                pQuery = pQuery.Where(e => e.Id == pUsuario.Id);
-
+                pQuery = pQuery.Where(s => s.Id == pUsuario.Id);
             if (pUsuario.IdRol > 0)
-                pQuery = pQuery.Where(e => e.IdRol == pUsuario.IdRol);
+                pQuery = pQuery.Where(s => s.IdRol == pUsuario.IdRol);
 
             if (!string.IsNullOrWhiteSpace(pUsuario.Nombre))
-                pQuery = pQuery.Where(e => e.Nombre.Contains(pUsuario.Nombre));
+                pQuery = pQuery.Where(s => s.Nombre.Contains(pUsuario.Nombre));
 
             if (!string.IsNullOrWhiteSpace(pUsuario.Apellido))
-                pQuery = pQuery.Where(e => e.Apellido.Contains(pUsuario.Apellido));
+                pQuery = pQuery.Where(s => s.Apellido.Contains(pUsuario.Apellido));
 
             if (!string.IsNullOrWhiteSpace(pUsuario.Login))
-                pQuery = pQuery.Where(e => e.Login.Contains(pUsuario.Login));
-
-            if (pUsuario.Estatus > 0)
-                pQuery = pQuery.Where(e => e.Estatus == pUsuario.Estatus);
-
-            pQuery = pQuery.OrderByDescending(e => e.Id).AsQueryable();
-
-            if (pUsuario.top_aux > 0)
-                pQuery = pQuery.Take(pUsuario.top_aux).AsQueryable();
-
+                pQuery = pQuery.Where(s => s.Login.Contains(pUsuario.Login));
+            if (pUsuario.Estado > 0)
+                pQuery = pQuery.Where(s => s.Estado == pUsuario.Estado);
+            if (pUsuario.FechaRegistro.Year > 1000)
+            {
+                DateTime fechaInicial = new DateTime(pUsuario.FechaRegistro.Year, pUsuario.FechaRegistro.Month, pUsuario.FechaRegistro.Day, 0, 0, 0);
+                DateTime fechaFinal = fechaInicial.AddDays(1).AddMilliseconds(-1);
+                pQuery = pQuery.Where(s => s.FechaRegistro >= fechaInicial && s.FechaRegistro <= fechaFinal);
+            }
+            pQuery = pQuery.OrderByDescending(s => s.Id).AsQueryable();
+            if (pUsuario.Top_Aux > 0)
+                pQuery = pQuery.Take(pUsuario.Top_Aux).AsQueryable();
             return pQuery;
         }
 
         public static async Task<List<Usuario>> BuscarAsync(Usuario pUsuario)
         {
-            var usuarios = new List<Usuario>();
+            var Usuarios = new List<Usuario>();
             using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Usuario.AsQueryable();
                 select = QuerySelect(select, pUsuario);
-                usuarios = await select.ToListAsync();
+                Usuarios = await select.ToListAsync();
             }
-            return usuarios;
+            return Usuarios;
         }
 
-        #endregion
         public static async Task<List<Usuario>> BuscarIncluirRolesAsync(Usuario pUsuario)
         {
             var usuarios = new List<Usuario>();
             using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Usuario.AsQueryable();
-                select = QuerySelect(select, pUsuario).Include(e => e.Rol).AsQueryable();
-
+                select = QuerySelect(select, pUsuario).Include(s => s.Rol).AsQueryable();
                 usuarios = await select.ToListAsync();
             }
-
             return usuarios;
-
         }
+
         public static async Task<Usuario> LoginAsync(Usuario pUsuario)
         {
             var usuario = new Usuario();
             using (var bdContexto = new BDContexto())
             {
                 EncriptarMD5(pUsuario);
-                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(e => e.Login == pUsuario.Login &&
-                e.Password == pUsuario.Password && e.Estatus == (byte)Estatus_Usuario.ACTIVO);
+                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login &&
+                s.Password == pUsuario.Password && s.Estado == (byte)Estatus_Usuario.ACTIVO);
             }
             return usuario;
         }
+
         public static async Task<int> CambiarPasswordAsync(Usuario pUsuario, string pPasswordAnt)
         {
             int result = 0;
@@ -184,8 +178,8 @@ namespace ProjectManager.AccesoADatos
             EncriptarMD5(usuarioPassAnt);
             using (var bdContexto = new BDContexto())
             {
-                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(e => e.Id == pUsuario.Id);
-                if (usuarioPassAnt.Password == usuario.Password.Trim())
+                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
+                if (usuarioPassAnt.Password == usuario.Password)
                 {
                     EncriptarMD5(pUsuario);
                     usuario.Password = pUsuario.Password;
@@ -196,27 +190,6 @@ namespace ProjectManager.AccesoADatos
                     throw new Exception("El password actual es incorrecto");
             }
             return result;
-        }
-
-        public static async Task<int> RegistrarUsuarioAsync(Usuario pUsuario)
-        {
-            int result = 0;
-            using (var bdContexto = new BDContexto())
-            {
-                bool existeLogin = await ExisteLogin(pUsuario, bdContexto);
-                if (existeLogin == false)
-                {
-                    pUsuario.Estatus = 1;
-                    pUsuario.IdRol = 1;
-                    EncriptarMD5(pUsuario);
-                    bdContexto.Add(pUsuario);
-                    result = await bdContexto.SaveChangesAsync();
-                }
-                else
-                    throw new Exception("Este nombre de Usuario ya existe");
-            }
-            return result;
-
         }
     }
 }
