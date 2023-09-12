@@ -13,7 +13,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> CrearAsync(Tarea pTarea)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 bdContexto.Add(pTarea);
                 result = await bdContexto.SaveChangesAsync();
@@ -23,7 +23,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> ModificarAsync(Tarea pTarea)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var tarea = await bdContexto.Tarea.FirstOrDefaultAsync(s => s.Id == pTarea.Id);
                 tarea.IdProyecto = pTarea.IdProyecto;
@@ -42,7 +42,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> EliminarAsync(Tarea pTarea)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var tarea = await bdContexto.Tarea.FirstOrDefaultAsync(s => s.Id == pTarea.Id);
                 bdContexto.Tarea.Remove(tarea);
@@ -53,7 +53,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<Tarea> ObtenerPorIdAsync(Tarea pTarea)
         {
             var tarea = new Tarea();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 tarea = await bdContexto.Tarea.FirstOrDefaultAsync(s => s.Id == pTarea.Id);
             }
@@ -62,7 +62,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Tarea>> ObtenerTodosAsync()
         {
             var tarea = new List<Tarea>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 tarea = await bdContexto.Tarea.ToListAsync();
             }
@@ -104,7 +104,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Tarea>> BuscarAsync(Tarea pTarea)
         {
             var tareas = new List<Tarea>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Tarea.AsQueryable();
                 select = QuerySelect(select, pTarea);
@@ -116,7 +116,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Tarea>> BuscarIncluirRelacionesAsync(Tarea pTarea)
         {
             var tareas = new List<Tarea>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Tarea.AsQueryable();
                 select = QuerySelect(select, pTarea).Include(s => s.Proyecto).AsQueryable();
