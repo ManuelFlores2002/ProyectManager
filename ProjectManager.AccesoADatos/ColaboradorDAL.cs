@@ -13,7 +13,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> CrearAsync(Colaborador pColaborador)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 bdContexto.Add(pColaborador);
                 result = await bdContexto.SaveChangesAsync();
@@ -23,7 +23,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> ModificarAsync(Colaborador pColaborador)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var colaborador = await bdContexto.Colaborador.FirstOrDefaultAsync(s => s.Id == pColaborador.Id);
                 colaborador.IdProyecto = pColaborador.IdProyecto;
@@ -38,7 +38,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<int> EliminarAsync(Colaborador pColaborador)
         {
             int result = 0;
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var colaborador = await bdContexto.Colaborador.FirstOrDefaultAsync(s => s.Id == pColaborador.Id);
                 bdContexto.Colaborador.Remove(colaborador);
@@ -49,7 +49,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<Colaborador> ObtenerPorIdAsync(Colaborador pColaborador)
         {
             var colaborador = new Colaborador();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 colaborador = await bdContexto.Colaborador.FirstOrDefaultAsync(s => s.Id == pColaborador.Id);
             }
@@ -58,7 +58,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Colaborador>> ObtenerTodosAsync()
         {
             var colaborador = new List<Colaborador>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 colaborador = await bdContexto.Colaborador.ToListAsync();
             }
@@ -88,7 +88,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Colaborador>> BuscarAsync(Colaborador pColaborador)
         {
             var colaboradores = new List<Colaborador>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Colaborador.AsQueryable();
                 select = QuerySelect(select, pColaborador);
@@ -99,7 +99,7 @@ namespace ProjectManager.AccesoADatos
         public static async Task<List<Colaborador>> BuscarIncluirRelacionesAsync(Colaborador pColaborador)
         {
             var colaboradores = new List<Colaborador>();
-            using (var bdContexto = new BDContext())
+            using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Colaborador.AsQueryable();
                 select = QuerySelect(select, pColaborador).Include(s => s.Proyecto).AsQueryable();

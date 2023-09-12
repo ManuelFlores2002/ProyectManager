@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.AccesoADatos
 {
-    public class BDContext : DbContext
+    public class BDContexto : DbContext
     {
         public DbSet<Colaborador> Colaborador { get; set; }
         public DbSet<Proyecto> Proyecto { get; set; }
