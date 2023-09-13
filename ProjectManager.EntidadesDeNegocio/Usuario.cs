@@ -41,13 +41,13 @@ namespace ProjectManager.EntidadesDeNegocio
         public string Password { get; set; }
 
 
-        public byte Estatus { get; set; }
+        public byte Estado { get; set; }
 
         //propiedad de navegación
         public Rol Rol { get; set; }
 
         [NotMapped]
-        public int top_aux { get; set; } //propiedad auxiliar para tarer un número específico
+        public int Top_Aux { get; set; } //propiedad auxiliar para tarer un número específico
                                          //de registros en las consultas.
 
         [NotMapped]

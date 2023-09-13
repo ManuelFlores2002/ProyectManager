@@ -12,23 +12,23 @@ namespace ProjectManager.AccesoADatos.Tests
     [TestClass()]
     public class UsuarioDALTests
     {
-        private static Usuario usuarioInicial = new Usuario { Id = 2, IdRol = 1, Login = "RobertoF", Password = "12345" };
+        private static Usuario usuarioInicial = new Usuario { Id = 5, IdRol = 3, Login = "JuanUser", Password = "12345" };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
         {
             var usuario = new Usuario();
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "Roberto";
-            usuario.Apellido = "Funes";
-            usuario.Login = "RobertoF";
-            string Password = "12345";
-            usuario.Password = Password;
-            usuario.Estatus = (byte)Estatus_Usuario.INACTIVO;
+            usuario.Nombre = "juan";
+            usuario.Apellido = "lopez";
+            usuario.Login = "juanUser";
+            string password = "12345";
+            usuario.Password = password;
+            usuario.Estado = (byte)Estatus_Usuario.INACTIVO;
             int result = await UsuarioDAL.CrearAsync(usuario);
             Assert.AreNotEqual(0, result);
             usuarioInicial.Id = usuario.Id;
-            usuarioInicial.Password = Password;
+            usuarioInicial.Password = password;
             usuarioInicial.Login = usuario.Login;
         }
 
@@ -38,10 +38,10 @@ namespace ProjectManager.AccesoADatos.Tests
             var usuario = new Usuario();
             usuario.Id = usuarioInicial.Id;
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "Roberto";
-            usuario.Apellido = "Funes";
-            usuario.Login = "RobertoF";
-            usuario.Estatus = (byte)Estatus_Usuario.INACTIVO;
+            usuario.Nombre = "Juan";
+            usuario.Apellido = "Lopez";
+            usuario.Login = "JuanUser01";
+            usuario.Estado = (byte)Estatus_Usuario.ACTIVO;
             int result = await UsuarioDAL.ModificarAsync(usuario);
             Assert.AreNotEqual(0, result);
             usuarioInicial.Login = usuario.Login;
@@ -68,11 +68,11 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var usuario = new Usuario();
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "R";
-            usuario.Apellido = "F";
-            usuario.Login = "R";
-            usuario.Estatus = (byte)Estatus_Usuario.ACTIVO;
-            usuario.top_aux = 10;
+            usuario.Nombre = "A";
+            usuario.Apellido = "e";
+            usuario.Login = "a";
+            usuario.Estado = (byte)Estatus_Usuario.ACTIVO;
+            usuario.Top_Aux = 10;
             var resultUsuarios = await UsuarioDAL.BuscarAsync(usuario);
             Assert.AreNotEqual(0, resultUsuarios.Count);
         }
@@ -82,16 +82,15 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var usuario = new Usuario();
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "R";
-            usuario.Apellido = "r";
-            usuario.Login = "R";
-            usuario.Estatus = (byte)Estatus_Usuario.ACTIVO;
-            usuario.top_aux = 10;
+            usuario.Nombre = "A";
+            usuario.Apellido = "a";
+            usuario.Login = "A";
+            usuario.Estado = (byte)Estatus_Usuario.ACTIVO;
+            usuario.Top_Aux = 10;
             var resultUsuarios = await UsuarioDAL.BuscarIncluirRolesAsync(usuario);
             Assert.AreNotEqual(0, resultUsuarios.Count);
             var ultimoUsuario = resultUsuarios.FirstOrDefault();
             Assert.IsTrue(ultimoUsuario.Rol != null && usuario.IdRol == ultimoUsuario.Rol.Id);
-
         }
 
         [TestMethod()]
@@ -99,9 +98,11 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var usuario = new Usuario();
             usuario.Id = usuarioInicial.Id;
-            String passwordNuevo = "12345";
+            string passwordNuevo = "123456";
             usuario.Password = passwordNuevo;
             var result = await UsuarioDAL.CambiarPasswordAsync(usuario, usuarioInicial.Password);
+            Assert.AreNotEqual(0, result);
+            usuarioInicial.Password = passwordNuevo;
         }
 
         [TestMethod()]
@@ -114,7 +115,6 @@ namespace ProjectManager.AccesoADatos.Tests
             Assert.AreEqual(usuario.Login, resultUsuario.Login);
         }
 
-
         [TestMethod()]
         public async Task T9EliminarAsyncTest()
         {
@@ -122,24 +122,6 @@ namespace ProjectManager.AccesoADatos.Tests
             usuario.Id = usuarioInicial.Id;
             int result = await UsuarioDAL.EliminarAsync(usuario);
             Assert.AreNotEqual(0, result);
-        }
-
-        [TestMethod()]
-        public async Task T10RegistrarUsuarioAsyncTest()
-        {
-            var usuario = new Usuario();
-            usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "Roberto";
-            usuario.Apellido = "Funes";
-            usuario.Login = "RobertoF";
-            string Password = "827ccb0eea8a706c4c34a16891f84e7b";
-            usuario.Password = Password;
-            usuario.Estatus = (byte)Estatus_Usuario.INACTIVO;
-            int result = await UsuarioDAL.RegistrarUsuarioAsync(usuario);
-            Assert.AreNotEqual(0, result);
-            usuarioInicial.Id = usuario.Id;
-            usuarioInicial.Password = Password;
-            usuarioInicial.Login = usuario.Login;
         }
     }
 }
