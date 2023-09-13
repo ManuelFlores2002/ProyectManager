@@ -68,9 +68,9 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var usuario = new Usuario();
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "A";
-            usuario.Apellido = "e";
-            usuario.Login = "a";
+            usuario.Nombre = "G";
+            usuario.Apellido = "N";
+            usuario.Login = "G";
             usuario.Estado = (byte)Estatus_Usuario.ACTIVO;
             usuario.Top_Aux = 10;
             var resultUsuarios = await UsuarioDAL.BuscarAsync(usuario);
@@ -82,9 +82,9 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var usuario = new Usuario();
             usuario.IdRol = usuarioInicial.IdRol;
-            usuario.Nombre = "A";
+            usuario.Nombre = "G";
             usuario.Apellido = "a";
-            usuario.Login = "A";
+            usuario.Login = "G";
             usuario.Estado = (byte)Estatus_Usuario.ACTIVO;
             usuario.Top_Aux = 10;
             var resultUsuarios = await UsuarioDAL.BuscarIncluirRolesAsync(usuario);
