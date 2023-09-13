@@ -20,7 +20,7 @@ namespace ProjectManager.AccesoADatos.Tests
             var colaborador = new Colaborador();
             colaborador.IdProyecto = colaboradorInicial.IdProyecto;
             colaborador.IdUsuario = colaboradorInicial.IdUsuario;
-            colaborador.Estado = (byte)Estado_Colaborador.INACTIVO;
+            colaborador.Estado = (byte)Estatus_Colaborador.INACTIVO;
             int result = await ColaboradorDAL.CrearAsync(colaborador);
             Assert.AreNotEqual(0, result);
             colaboradorInicial.Id = colaborador.Id;
@@ -33,7 +33,7 @@ namespace ProjectManager.AccesoADatos.Tests
             colaborador.Id = colaboradorInicial.Id;
             colaborador.IdProyecto = colaboradorInicial.IdProyecto;
             colaborador.IdUsuario = colaboradorInicial.IdUsuario;
-            colaborador.Estado = (byte)Estado_Colaborador.ACTIVO;
+            colaborador.Estado = (byte)Estatus_Colaborador.ACTIVO;
             int result = await ColaboradorDAL.ModificarAsync(colaborador);
             Assert.AreNotEqual(0, result);
         }
@@ -60,7 +60,7 @@ namespace ProjectManager.AccesoADatos.Tests
             var colaborador = new Colaborador();
             colaborador.IdProyecto = colaboradorInicial.IdProyecto;
             colaborador.IdUsuario = colaboradorInicial.IdUsuario;
-            colaborador.Estado = (byte)Estado_Colaborador.ACTIVO;
+            colaborador.Estado = (byte)Estatus_Colaborador.ACTIVO;
             colaborador.Top_Aux = 10;
             var resultColaboradores = await ColaboradorDAL.BuscarAsync(colaborador);
             Assert.AreNotEqual(0, resultColaboradores.Count);
@@ -72,13 +72,12 @@ namespace ProjectManager.AccesoADatos.Tests
             var colaborador = new Colaborador();
             colaborador.IdProyecto = colaboradorInicial.IdProyecto;
             colaborador.IdUsuario = colaboradorInicial.IdUsuario;
-            colaborador.Estado = (byte)Estado_Colaborador.INACTIVO;
+            colaborador.Estado = (byte)Estatus_Colaborador.ACTIVO;
             colaborador.Top_Aux = 10;
             var resultColaboradores = await ColaboradorDAL.BuscarIncluirRelacionesAsync(colaborador);
             Assert.AreNotEqual(0, resultColaboradores.Count);
             var ultimoColaborador = resultColaboradores.FirstOrDefault();
-            Assert.IsTrue(ultimoColaborador.IdProyecto != null && colaborador.IdProyecto == ultimoColaborador.IdProyecto 
-                && colaborador.IdUsuario == ultimoColaborador.IdUsuario);
+            Assert.IsTrue(ultimoColaborador.Proyecto != null && colaborador.IdProyecto == ultimoColaborador.Proyecto.Id && ultimoColaborador.Usuario != null && colaborador.IdUsuario == ultimoColaborador.Usuario.Id);
         }
 
         [TestMethod()]

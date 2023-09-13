@@ -31,7 +31,7 @@ namespace ProjectManager.EntidadesDeNegocio
         [NotMapped]
         public int Top_Aux { get; set; }
     }
-    public enum Estado_Colaborador
+    public enum Estatus_Colaborador
     {
         ACTIVO = 1,
         INACTIVO = 0

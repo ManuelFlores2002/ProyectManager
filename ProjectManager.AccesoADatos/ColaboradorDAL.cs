@@ -102,8 +102,7 @@ namespace ProjectManager.AccesoADatos
             using (var bdContexto = new BDContexto())
             {
                 var select = bdContexto.Colaborador.AsQueryable();
-                select = QuerySelect(select, pColaborador).Include(s => s.Proyecto).AsQueryable();
-                select = QuerySelect(select, pColaborador).Include(s => s.Usuario).AsQueryable();
+                select = QuerySelect(select, pColaborador).Include(s => s.Proyecto).Include(s => s.Usuario).AsQueryable();
                 colaboradores = await select.ToListAsync();
             }
             return colaboradores;
