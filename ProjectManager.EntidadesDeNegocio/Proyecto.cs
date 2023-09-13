@@ -29,6 +29,8 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [NotMapped]
         public int Top_Aux { get; set; }
+        public List<Tarea> Tarea { get; set; }
+
     }
     public enum Estatus_Proyecto
     {

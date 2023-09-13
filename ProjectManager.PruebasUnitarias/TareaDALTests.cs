@@ -48,16 +48,7 @@ namespace ProjectManager.AccesoADatos.Tests
         }
 
         [TestMethod()]
-        public async Task T3EliminarAsyncTest()
-        {
-            var tarea = new Tarea();
-            tarea.Id = tareaInicial.Id;
-            int result = await TareaDAL.EliminarAsync(tarea);
-            Assert.AreNotEqual(0, result);
-        }
-
-        [TestMethod()]
-        public async Task T4ObtenerPorIdAsyncTest()
+        public async Task T3ObtenerPorIdAsyncTest()
         {
             var tarea = new Tarea();
             tarea.Id = tareaInicial.Id;
@@ -66,14 +57,14 @@ namespace ProjectManager.AccesoADatos.Tests
         }
 
         [TestMethod()]
-        public async Task T5ObtenerTodosAsyncTest()
+        public async Task T4ObtenerTodosAsyncTest()
         {
             var resultTarea = await TareaDAL.ObtenerTodosAsync();
-            Assert.AreEqual(0, resultTarea.Count);
+            Assert.AreNotEqual(0, resultTarea.Count);
         }
 
         [TestMethod()]
-        public async Task T6BuscarAsyncTest()
+        public async Task T5BuscarAsyncTest()
         {
             var tarea = new Tarea();
             tarea.IdProyecto = tareaInicial.IdProyecto;
@@ -88,10 +79,9 @@ namespace ProjectManager.AccesoADatos.Tests
         }
 
         [TestMethod()]
-        public async Task T7BuscarIncluirRelacionesAsyncTest()
+        public async Task T6BuscarIncluirRelacionesAsyncTest()
         {
             var tarea = new Tarea();
-            tarea.Id = tareaInicial.Id;
             tarea.IdProyecto = tareaInicial.IdProyecto;
             tarea.IdColaborador = tareaInicial.IdColaborador;
             tarea.Nombre = "Crear";
@@ -103,6 +93,14 @@ namespace ProjectManager.AccesoADatos.Tests
             Assert.AreEqual(0, resultTarea.Count);
             var ultimaTarea = resultTarea.FirstOrDefault();
             Assert.IsTrue(ultimaTarea.Proyecto != null && tarea.IdProyecto == ultimaTarea.Proyecto.Id && ultimaTarea.Colaborador != null && tarea.IdColaborador == ultimaTarea.Colaborador.Id);
+        }
+        [TestMethod()]
+        public async Task T7EliminarAsyncTest()
+        {
+            var tarea = new Tarea();
+            tarea.Id = tareaInicial.Id;
+            int result = await TareaDAL.EliminarAsync(tarea);
+            Assert.AreNotEqual(0, result);
         }
     }
 }
