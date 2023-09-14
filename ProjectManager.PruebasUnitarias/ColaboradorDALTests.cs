@@ -20,7 +20,7 @@ namespace ProjectManager.AccesoADatos.Tests
             var colaborador = new Colaborador();
             colaborador.IdProyecto = colaboradorInicial.IdProyecto;
             colaborador.IdUsuario = colaboradorInicial.IdUsuario;
-            colaborador.Estado = (byte)Estatus_Colaborador.INACTIVO;
+            colaborador.Estado = (byte)Estatus_Colaborador.ACTIVO;
             int result = await ColaboradorDAL.CrearAsync(colaborador);
             Assert.AreNotEqual(0, result);
             colaboradorInicial.Id = colaborador.Id;
