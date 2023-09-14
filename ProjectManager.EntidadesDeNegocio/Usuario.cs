@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -44,7 +45,7 @@ namespace ProjectManager.EntidadesDeNegocio
         public byte Estado { get; set; }
 
         //propiedad de navegación
-        public Rol Rol { get; set; }
+      
 
         [NotMapped]
         public int Top_Aux { get; set; } //propiedad auxiliar para tarer un número específico
@@ -56,7 +57,13 @@ namespace ProjectManager.EntidadesDeNegocio
         [Compare("Password", ErrorMessage = "Password y confirmar password deben de ser iguales")]
         [Display(Name = "Confirmar password")]
         public string confirmPassword_aux { get; set; }
+
+        [ValidateNever]
+        public Rol Rol { get; set; }
+
+        public Proyecto Proyecto { get; set; }
     }
+
     public enum Estatus_Usuario
     {
         ACTIVO = 1,

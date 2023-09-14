@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,7 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [ForeignKey("Usuario")]
         public int IdAdministrador { get; set; }
-        public Usuario Usuario { get; set; }
+       
 
         [Required(ErrorMessage = "Nombre es Obligatorio")]
         [StringLength(150, ErrorMessage = "Maximo 150 Caracteres")]
@@ -29,7 +30,10 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [NotMapped]
         public int Top_Aux { get; set; }
+
+        [ValidateNever]
         public List<Tarea> Tarea { get; set; }
+        public Usuario Usuario { get; set; }
 
     }
     public enum Estatus_Proyecto

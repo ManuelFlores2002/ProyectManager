@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,14 +17,14 @@ namespace ProjectManager.EntidadesDeNegocio
         [Display(Name = "Proyecto")]
         [ForeignKey("Proyecto")]
         public int IdProyecto { get; set; }
-        public Proyecto Proyecto { get; set; }
+       
 
 
         [Display(Name = "Colavorador")]
         [ForeignKey("Colaborador")]
         [Required(ErrorMessage = "El ID de Colaborador es Obligatorio")]
         public int IdColaborador { get; set; }
-        public Colaborador Colaborador { get; set; }
+       
 
 
         [Display(Name = "Nombre")]
@@ -48,6 +49,9 @@ namespace ProjectManager.EntidadesDeNegocio
         [NotMapped]
         public int Top_Aux { get; set; }
 
+        [ValidateNever]
+        public Proyecto Proyecto { get; set; }
+        public Colaborador Colaborador { get; set; }
     }
     public enum Estado_Tarea
     {

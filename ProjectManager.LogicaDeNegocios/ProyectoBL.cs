@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.LogicaDeNegocios
 {
-    internal class ProyectoBL
+    public class ProyectoBL
     {
         public async Task<int> CrearAsync(Proyecto pProyecto)
         {
