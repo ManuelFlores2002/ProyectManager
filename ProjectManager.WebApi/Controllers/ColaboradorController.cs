@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ProjectManager.WebApi.Controllers
 {
@@ -78,7 +79,8 @@ namespace ProjectManager.WebApi.Controllers
             string strColaborador = JsonSerializer.Serialize(pColaborador);
             Colaborador colaborador = JsonSerializer.Deserialize<Colaborador>(strColaborador);
             var colaboradores = await colaboradorBL.BuscarIncluirRelacionesAsync(colaborador);
-            colaboradores.ForEach(s => { s.Proyecto = null; s.Usuario = null; });
+            colaboradores.ForEach(s => s.Proyecto.Colaborador = null);
+            colaboradores.ForEach(s => s.Usuario.Colaborador = null);
             return colaboradores;
         }
     }

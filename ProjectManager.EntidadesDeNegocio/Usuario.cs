@@ -62,6 +62,7 @@ namespace ProjectManager.EntidadesDeNegocio
         public Rol Rol { get; set; }
 
         public Proyecto Proyecto { get; set; }
+        public List<Colaborador> Colaborador { get; set; }
     }
 
     public enum Estatus_Usuario
