@@ -24,6 +24,7 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [NotMapped]
         public int Top_Aux { get; set; }
+
         [ValidateNever]
         public List<Usuario> Usuario { get; set; }
 

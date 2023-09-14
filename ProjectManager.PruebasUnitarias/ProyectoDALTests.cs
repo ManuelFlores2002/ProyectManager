@@ -75,8 +75,8 @@ namespace ProjectManager.AccesoADatos.Tests
         {
             var proyecto = new Proyecto();
             proyecto.IdAdministrador = proyectoInicial.IdAdministrador;
-            proyecto.Nombre = "G";
-            proyecto.Descripcion = "g";
+            proyecto.Nombre = "P";
+            proyecto.Descripcion = "P";
             proyecto.Top_Aux = 10;
             var resultProyecto = await ProyectoDAL.BuscarIncluirUsuariosAsync(proyecto);
             Assert.AreNotEqual(0, resultProyecto.Count);
