@@ -51,6 +51,8 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [ValidateNever]
         public Proyecto Proyecto { get; set; }
+
+        [ValidateNever]
         public Colaborador Colaborador { get; set; }
     }
     public enum Estado_Tarea

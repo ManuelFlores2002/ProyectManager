@@ -33,7 +33,11 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [ValidateNever]
         public List<Tarea> Tarea { get; set; }
+
+        [ValidateNever]
         public List<Colaborador> Colaborador { get; set; }
+
+        [ValidateNever]
         public Usuario Usuario { get; set; }
 
     }

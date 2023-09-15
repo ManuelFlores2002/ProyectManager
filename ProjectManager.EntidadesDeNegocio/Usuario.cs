@@ -27,8 +27,6 @@ namespace ProjectManager.EntidadesDeNegocio
         [MaxLength(100, ErrorMessage = "El largo maximo es 100 caracteres")]
         public string Apellido { get; set; }
 
-        [Required(ErrorMessage = "La Fecha de registro es requerido")]
-        [MaxLength(20, ErrorMessage = "El largo maximo es 20 caracteres")]
         public DateTime FechaRegistro { get; set; }
 
 
@@ -61,7 +59,10 @@ namespace ProjectManager.EntidadesDeNegocio
         [ValidateNever]
         public Rol Rol { get; set; }
 
+        [ValidateNever]
         public Proyecto Proyecto { get; set; }
+
+        [ValidateNever]
         public List<Colaborador> Colaborador { get; set; }
     }
 

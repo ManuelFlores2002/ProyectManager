@@ -23,6 +23,8 @@ namespace ProjectManager.EntidadesDeNegocio
         [ForeignKey("Usuario")]
         [Required(ErrorMessage = "El ID de Usuario es obligatorio")]
         public int IdUsuario { get; set; }
+
+        [ValidateNever]
         public Usuario Usuario { get; set; }
 
         [Display(Name = "Estado")]
@@ -31,6 +33,8 @@ namespace ProjectManager.EntidadesDeNegocio
 
         [NotMapped]
         public int Top_Aux { get; set; }
+
+        [ValidateNever]
         public List<Tarea> Tarea { get; set; }
     }
     public enum Estatus_Colaborador

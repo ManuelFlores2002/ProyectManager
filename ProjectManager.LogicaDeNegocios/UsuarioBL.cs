@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.LogicaDeNegocios
 {
-    internal class UsuarioBL
+    public class UsuarioBL
     {
         public async Task<int> CrearAsync(Usuario pUsuario)
         {
