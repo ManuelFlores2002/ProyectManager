@@ -17,15 +17,11 @@ namespace ProjectManager.EntidadesDeNegocio
         [Display(Name = "Proyecto")]
         [ForeignKey("Proyecto")]
         public int IdProyecto { get; set; }
-        public Proyecto Proyecto { get; set; }
 
         [Display(Name = "Usuario")]
         [ForeignKey("Usuario")]
         [Required(ErrorMessage = "El ID de Usuario es obligatorio")]
         public int IdUsuario { get; set; }
-
-        [ValidateNever]
-        public Usuario Usuario { get; set; }
 
         [Display(Name = "Estado")]
         [Required(ErrorMessage = "El Estado del colaborador es obligatorio")]
@@ -35,11 +31,17 @@ namespace ProjectManager.EntidadesDeNegocio
         public int Top_Aux { get; set; }
 
         [ValidateNever]
+        public Proyecto Proyecto { get; set; }
+
+        [ValidateNever]
+        public Usuario Usuario { get; set; }
+
+        [ValidateNever]
         public List<Tarea> Tarea { get; set; }
     }
     public enum Estatus_Colaborador
     {
         ACTIVO = 1,
-        INACTIVO = 0
+        INACTIVO = 2
     }
 }
