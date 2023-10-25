@@ -14,7 +14,6 @@ namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ColaboradorController : ControllerBase
     {
         private ColaboradorBL colaboradorBL = new ColaboradorBL();

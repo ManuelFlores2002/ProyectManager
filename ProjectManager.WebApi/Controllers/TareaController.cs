@@ -12,7 +12,6 @@ namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class TareaController : ControllerBase
     {
         private TareaBL tareaBL = new TareaBL();
@@ -84,8 +83,5 @@ namespace ProjectManager.WebApi.Controllers
             tareas.ForEach(s => s.Proyecto.Colaborador = null);
             return tareas;
         }
-          
-         
-
     }
 }
