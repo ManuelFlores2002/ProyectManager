@@ -81,6 +81,7 @@ namespace ProjectManager.WebApi.Controllers
             var tareas = await tareaBL.BuscarIncluirRelacionesAsync(tarea);
             tareas.ForEach(s => s.Proyecto.Tarea = null);
             tareas.ForEach(s => s.Colaborador.Tarea = null);
+            tareas.ForEach(s => s.Proyecto.Colaborador = null);
             return tareas;
         }
           
