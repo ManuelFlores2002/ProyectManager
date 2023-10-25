@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManager.EntidadesDeNegocio;
 using ProjectManager.LogicaDeNegocios;
@@ -11,6 +12,7 @@ namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TareaController : ControllerBase
     {
         private TareaBL tareaBL = new TareaBL();

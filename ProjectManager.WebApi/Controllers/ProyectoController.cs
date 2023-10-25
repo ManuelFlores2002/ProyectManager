@@ -9,11 +9,13 @@ namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProyectoController : ControllerBase
     {
         private ProyectoBL proyectoBL = new ProyectoBL();
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IEnumerable<Proyecto>> Get()
         {
             return await proyectoBL.ObtenerTodosAsync();
@@ -80,6 +82,8 @@ namespace ProjectManager.WebApi.Controllers
             Proyecto proyecto = JsonSerializer.Deserialize<Proyecto>(strProyecto, option);
             var proyectos = await proyectoBL.BuscarIncluirUsuariosAsync(proyecto);
             proyectos.ForEach(s => s.Usuario.Proyecto = null);
+          
+           
             return proyectos;
         }
 

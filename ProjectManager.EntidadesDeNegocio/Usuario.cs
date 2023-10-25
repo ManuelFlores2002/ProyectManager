@@ -60,10 +60,10 @@ namespace ProjectManager.EntidadesDeNegocio
         public Rol Rol { get; set; }
 
         [ValidateNever]
-        public Proyecto Proyecto { get; set; }
+        public List<Colaborador> Colaborador { get; set; }  
 
         [ValidateNever]
-        public List<Colaborador> Colaborador { get; set; }
+        public List<Proyecto> Proyecto { get; set; }
     }
 
     public enum Estatus_Usuario

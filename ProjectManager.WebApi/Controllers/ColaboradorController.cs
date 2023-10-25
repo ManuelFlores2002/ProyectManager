@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ColaboradorController : ControllerBase
     {
         private ColaboradorBL colaboradorBL = new ColaboradorBL();

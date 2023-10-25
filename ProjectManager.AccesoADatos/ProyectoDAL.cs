@@ -57,6 +57,7 @@ namespace ProjectManager.AccesoADatos
             return proyecto;
         }
         public static async Task<List<Proyecto>> ObtenerTodosAsync()
+
         {
             var proyectos = new List<Proyecto>();
             using (var bdContexto = new BDContexto())

@@ -15,6 +15,7 @@ namespace ProjectManager.EntidadesDeNegocio
         public int Id { get; set; }
 
         [ForeignKey("Usuario")]
+        [Column(name: "IdAdministrador")]
         public int IdAdministrador { get; set; }
        
 

@@ -9,7 +9,7 @@ namespace ProjectManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class RolController : ControllerBase
     {
         private RolBL rolBL = new RolBL();
