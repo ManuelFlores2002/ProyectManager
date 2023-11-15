@@ -82,6 +82,8 @@ namespace ProjectManager.WebApi.Controllers
             var colaboradores = await colaboradorBL.BuscarIncluirRelacionesAsync(colaborador);
             colaboradores.ForEach(s => s.Proyecto.Colaborador = null);
             colaboradores.ForEach(s => s.Usuario.Colaborador = null);
+            colaboradores.ForEach(s => s.Proyecto.Usuario = null);
+
             return colaboradores;
         }
     }
