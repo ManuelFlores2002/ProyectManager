@@ -20,7 +20,8 @@ namespace ProjectManager.AccesoADatos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-            optionBuilder.UseSqlServer(@"Data Source=WIN-0U8B9EVITAS;Initial Catalog=ProyectManager;Integrated Security=True; Trust Server Certificate=true");
+            //optionBuilder.UseSqlServer(@"Data Source=DESKTOP-KT040TS;Initial Catalog=ProyectManager;Integrated Security=True; Trust Server Certificate=true");
+            optionBuilder.UseSqlServer(@"Data Source=Servidor-01; Initial Catalog=ProyectManager; User Id=sa; Pwd=Admin2023#; encrypt = false; trustServerCertificate = true;");
         }
     }
 }
