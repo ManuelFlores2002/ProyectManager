@@ -20,6 +20,7 @@ namespace ProjectManager.AccesoADatos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
+
             optionBuilder.UseSqlServer(@"Data Source= DESKTOP-CC30LNJ;Initial Catalog=ProyectManager;Integrated Security=True; Trust Server Certificate=true");
         }
     }
