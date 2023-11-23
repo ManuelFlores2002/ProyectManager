@@ -92,7 +92,8 @@ namespace ProjectManager.AccesoADatos.Tests
             var resultTarea = await TareaDAL.BuscarIncluirRelacionesAsync(tarea);
             Assert.AreNotEqual(0, resultTarea.Count);
             var ultimaTarea = resultTarea.FirstOrDefault();
-            Assert.IsTrue(ultimaTarea.Proyecto != null && tarea.IdProyecto == ultimaTarea.Proyecto.Id && ultimaTarea.Colaborador != null && tarea.IdColaborador == ultimaTarea.Colaborador.Id);
+            Assert.IsTrue(ultimaTarea.Proyecto != null && tarea.IdProyecto == ultimaTarea.Proyecto.Id &&
+                ultimaTarea.Colaborador != null && tarea.IdColaborador == ultimaTarea.Colaborador.Id);
         }
         [TestMethod()]
         public async Task T7EliminarAsyncTest()
