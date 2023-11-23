@@ -12,7 +12,7 @@ namespace ProjectManager.AccesoADatos.Tests
     [TestClass()]
     public class ColaboradorDALTests
     {
-        private static Colaborador colaboradorInicial = new Colaborador { Id = 1, IdProyecto = 1, IdUsuario = 1, Estado = 1};
+        private static Colaborador colaboradorInicial = new Colaborador { Id = 1, IdProyecto = 14, IdUsuario = 6, Estado = 1};
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
