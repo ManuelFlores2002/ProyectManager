@@ -12,7 +12,7 @@ namespace ProjectManager.AccesoADatos.Tests
     [TestClass()]
     public class RolDALTests
     {
-        private static Rol rolInicial = new Rol { Id = 1 };
+        private static Rol rolInicial = new Rol { Id = 6 };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()

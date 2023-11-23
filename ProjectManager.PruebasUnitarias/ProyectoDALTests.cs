@@ -12,7 +12,7 @@ namespace ProjectManager.AccesoADatos.Tests
     [TestClass()]
     public class ProyectoDALTests
     {
-        private static Proyecto proyectoInicial = new Proyecto { Id = 1, IdAdministrador = 4 };
+        private static Proyecto proyectoInicial = new Proyecto { Id = 18, IdAdministrador = 6 };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
